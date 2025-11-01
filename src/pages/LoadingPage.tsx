@@ -61,14 +61,23 @@ const LoadingPage: React.FC = () => {
           </Top.SubtitleParagraph>
         }
       />
-      <div className="flex-1 flex items-center justify-center">
+      <div className="relative flex-1 flex items-center justify-center ">
         <Asset.Lottie
+          className="bg-white"
           frameShape={{ width: 375 }}
           src="https://static.toss.im/lotties/loading/load-ripple.json"
           loop={true}
           speed={1}
           aria-hidden={true}
         />
+
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+          <Asset.Image
+            frameShape={{ width: 160 }}
+            src="/pig-transparent.png"
+            aria-hidden={true}
+          />
+        </div>
       </div>
     </div>
   );
