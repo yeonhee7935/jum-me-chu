@@ -8,10 +8,9 @@ import { BrowserRouter } from "react-router-dom";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <TDSMobileAITProvider>
-      Hello
-      {/* <BrowserRouter>
+      <BrowserRouter>
         <App />
-      </BrowserRouter> */}
+      </BrowserRouter>
     </TDSMobileAITProvider>
   </StrictMode>
 );
