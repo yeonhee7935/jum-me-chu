@@ -21,7 +21,7 @@ export function getRandomMenu(
 ): MenuItem | null {
   if (type === "cuisines") {
     const k = keyword as CuisineId;
-    if (k === "all" || k === "random") {
+    if (k === "random") {
       return pickOne(menuList);
     }
     const filtered = menuList.filter((m) => m.cuisines.includes(k));

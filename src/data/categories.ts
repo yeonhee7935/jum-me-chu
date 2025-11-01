@@ -1,11 +1,11 @@
 export const CUISINE_IDS = [
-  "all",
   "korean",
   "chinese",
   "japanese",
   "western",
   "snack",
   "fastfood",
+  "asian",
   "random",
 ] as const;
 
@@ -27,13 +27,13 @@ export interface Category {
 }
 
 export const CUISINE_LABELS: Record<CuisineId, string> = {
-  all: "전체",
   korean: "한식",
   chinese: "중식",
   japanese: "일식",
   western: "양식",
   snack: "분식",
   fastfood: "패스트푸드",
+  asian: "아시안",
   random: "랜덤",
 };
 
