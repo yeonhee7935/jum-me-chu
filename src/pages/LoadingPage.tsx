@@ -1,32 +1,75 @@
 import React, { useEffect } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { getRandomMenu } from "../utils/random";
+import {
+  CUISINE_IDS,
+  SITUATION_IDS,
+  type CuisineId,
+  type SituationId,
+} from "../data/categories";
+import type { MenuItem } from "../data/menu";
+import { Asset, Top } from "@toss/tds-mobile";
+import { adaptive } from "@toss/tds-colors";
 
-interface LoadingPageProps {
-  onDone: (fromAd: boolean) => void;
-}
+const isCuisineId = (v: string): v is CuisineId =>
+  (CUISINE_IDS as readonly string[]).includes(v);
 
-const LoadingPage: React.FC<LoadingPageProps> = ({ onDone }) => {
-  const location = useLocation();
+const isSituationId = (v: string): v is SituationId =>
+  (SITUATION_IDS as readonly string[]).includes(v);
+
+const LoadingPage: React.FC = () => {
   const navigate = useNavigate();
-  const fromAd = (location.state as any)?.fromAd ?? false;
+  const [searchParams] = useSearchParams();
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (fromAd) {
-        // 광고 시청 완료 처리 가능
-        // 이후 메뉴 추천 진행
-      }
-      onDone(fromAd);
-    }, 5000);
+    const typeParam = searchParams.get("type");
+    const keywordParam = searchParams.get("keyword");
 
-    return () => clearTimeout(timer);
-  }, [onDone, fromAd]);
+    let picked: MenuItem | null = null;
+    if (typeParam === "cuisines" && keywordParam && isCuisineId(keywordParam)) {
+      picked = getRandomMenu("cuisines", keywordParam);
+    } else if (
+      typeParam === "situations" &&
+      keywordParam &&
+      isSituationId(keywordParam)
+    ) {
+      picked = getRandomMenu("situations", keywordParam);
+    }
+
+    if (picked) {
+      const timer = setTimeout(() => {
+        navigate("/result", { state: { menu: picked } });
+      }, 2000);
+
+      return () => clearTimeout(timer);
+    } else {
+      navigate("/error");
+    }
+  }, [searchParams, navigate]);
 
   return (
-    <div className="flex-grow flex items-center justify-center">
-      <p className="text-xl font-semibold text-gray-700">
-        추천 메뉴를 골라오는 중이에요…
-      </p>
+    <div className="h-screen w-screen">
+      <Top
+        title={
+          <Top.TitleParagraph size={28} color={adaptive.grey900}>
+            메뉴를 고르고있어요
+          </Top.TitleParagraph>
+        }
+        subtitleBottom={
+          <Top.SubtitleParagraph color={adaptive.grey500}>
+            잠시만 기다려주세요.
+          </Top.SubtitleParagraph>
+        }
+      />
+      <div className="flex-1 flex items-center justify-center">
+        <Asset.Lottie
+          frameShape={{ width: 375 }}
+          src="https://static.toss.im/lotties/loading/load-ripple.json"
+          loop={true}
+          speed={1}
+          aria-hidden={true}
+        />
+      </div>
     </div>
   );
 };
