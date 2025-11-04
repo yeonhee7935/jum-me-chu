@@ -19,8 +19,6 @@ const SelectionPage: React.FC = () => {
     <div className="flex h-screen flex-col w-screen">
       {/* 상단 고정 영역 */}
       <Top
-        upperGap={0}
-        lowerGap={0}
         title={
           <Top.TitleParagraph size={28}>
             {currentType === "cuisines"
