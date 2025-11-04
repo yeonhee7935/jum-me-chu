@@ -5,16 +5,6 @@ import { Asset, FixedBottomCTA, Text } from "@toss/tds-mobile";
 import { Spacing } from "../components/Spacing";
 import { adaptive } from "@toss/tds-colors";
 
-const PHRASES = [
-  "이건 못 참죠",
-  "입맛 없을 땐 이거죠",
-  "든든하게 먹어봐요",
-  "오늘은 이걸로 가볼까요",
-  "고민은 여기까지",
-  "점심시간이 기다려질 거예요",
-  "좋은 하루가 될 거예요",
-];
-
 const ResultPage: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -22,6 +12,7 @@ const ResultPage: React.FC = () => {
   const menuResult = (location.state as { menu: MenuItem | undefined })?.menu;
 
   const menuName = menuResult?.name;
+  const comment = menuResult?.comment;
 
   if (!menuResult) {
     setTimeout(() => {
@@ -37,7 +28,6 @@ const ResultPage: React.FC = () => {
       </div>
     );
   }
-  const randomPhrase = PHRASES[Math.floor(Math.random() * PHRASES.length)];
 
   return (
     <div className="flex flex-col items-center justify-center text-center  w-screen">
@@ -64,9 +54,11 @@ const ResultPage: React.FC = () => {
         fontWeight="medium"
         textAlign="center"
       >
-        {randomPhrase}
+        {comment}
       </Text>
-      <FixedBottomCTA loading={false}>메뉴 다시 고르기</FixedBottomCTA>
+      <FixedBottomCTA loading={false} onClick={() => navigate("/")}>
+        메뉴 다시 고르기
+      </FixedBottomCTA>
     </div>
   );
 };
