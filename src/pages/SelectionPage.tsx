@@ -56,13 +56,19 @@ const SelectionPage: React.FC = () => {
           } gap-2 px-4 pb-28 w-full`} // pb로 하단 여백 확보(고정 CTA와 겹침 방지)
         >
           {currentType === "cuisines"
-            ? cuisines.map((cat) => (
+            ? cuisines.map((cat, index) => (
                 <div
                   key={cat.id}
-                  className="text-center bg-gray-100 py-8 px-2 rounded-lg"
+                  className={`text-center py-8 px-2 rounded-lg ${
+                    index === 0 ? "bg-[#3182f6]" : "bg-gray-100"
+                  }`}
                   onClick={() => onSelect("cuisines", cat.id)}
                 >
-                  <span className="text-xl font-semibold text-gray-800">
+                  <span
+                    className={`text-xl font-semibold  ${
+                      index === 0 ? "text-white" : "text-gray-800"
+                    }`}
+                  >
                     {cat.label}
                   </span>
                 </div>

@@ -27,6 +27,7 @@ export interface Category {
 }
 
 export const CUISINE_LABELS: Record<CuisineId, string> = {
+  random: "랜덤",
   korean: "한식",
   chinese: "중식",
   japanese: "일식",
@@ -34,7 +35,6 @@ export const CUISINE_LABELS: Record<CuisineId, string> = {
   snack: "분식",
   fastfood: "패스트푸드",
   asian: "아시안",
-  random: "랜덤",
 };
 
 export const SITUATION_LABELS: Record<SituationId, string> = {
@@ -49,7 +49,7 @@ export const SITUATION_LABELS: Record<SituationId, string> = {
 export const cuisines: Category[] = CUISINE_IDS.map((id) => ({
   id,
   label: CUISINE_LABELS[id],
-}));
+})).sort((a, b) => (a.id === "random" ? -1 : b.id === "random" ? 1 : 0));
 
 export const situations: Category[] = SITUATION_IDS.map((id) => ({
   id,
