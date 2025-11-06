@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import type { MenuItem } from "../data/menu";
-import { Asset, FixedBottomCTA, Text } from "@toss/tds-mobile";
+import { Asset, Button, Text } from "@toss/tds-mobile";
 import { Spacing } from "../components/Spacing";
 import { adaptive } from "@toss/tds-colors";
 
@@ -172,9 +172,16 @@ const ResultPage: React.FC = () => {
       >
         {comment}
       </Text>
-      <FixedBottomCTA loading={false} onClick={() => navigate("/")}>
-        메뉴 다시 고르기
-      </FixedBottomCTA>
+      <div className="fixed bottom-10 left-0 right-0 p-8 ">
+        <Button
+          loading={false}
+          onClick={() => navigate("/")}
+          display="block"
+          className="w-full"
+        >
+          메뉴 다시 고르기
+        </Button>
+      </div>
 
       {/* 애니메이션으로 튀어 나가는 이모지들 */}
       {animatedEmojis.map((emoji) => (

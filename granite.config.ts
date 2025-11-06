@@ -5,7 +5,7 @@ export default defineConfig({
   brand: {
     displayName: "점메추", // 화면에 노출될 앱의 한글 이름으로 바꿔주세요.
     primaryColor: "#3182F6", // 화면에 노출될 앱의 기본 색상으로 바꿔주세요.
-    icon: "app-icon.png", // 화면에 노출될 앱의 아이콘 이미지 주소로 바꿔주세요.
+    icon: "https://raw.githubusercontent.com/yeonhee7935/jum-me-chu/refs/heads/main/public/app-icon.png", // 화면에 노출될 앱의 아이콘 이미지 주소로 바꿔주세요.
     bridgeColorMode: "basic",
   },
   web: {
