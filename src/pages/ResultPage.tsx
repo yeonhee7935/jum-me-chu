@@ -4,6 +4,7 @@ import type { MenuItem } from "../data/menu";
 import { Asset, Button, Text } from "@toss/tds-mobile";
 import { Spacing } from "../components/Spacing";
 import { adaptive } from "@toss/tds-colors";
+import { AdRewardButton } from "../components/AdRewardButton";
 
 // 애니메이션에 필요한 모든 속성을 포함하는 인터페이스 정의
 interface AnimatedEmoji {
@@ -173,14 +174,7 @@ const ResultPage: React.FC = () => {
         {comment}
       </Text>
       <div className="fixed bottom-10 left-0 right-0 p-8 ">
-        <Button
-          loading={false}
-          onClick={() => navigate("/")}
-          display="block"
-          className="w-full"
-        >
-          메뉴 다시 고르기
-        </Button>
+        <AdRewardButton onRewarded={() => navigate("/")} />
       </div>
 
       {/* 애니메이션으로 튀어 나가는 이모지들 */}

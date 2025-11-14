@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>캘린더 추가 테스트</title>
+    <style>
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+          sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        gap: 16px;
+        background: #f5f5f5;
+      }
+      button {
+        padding: 12px 20px;
+        font-size: 16px;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        color: white;
+        transition: 0.2s;
+      }
+      #google-btn {
+        background-color: #4285f4;
+      }
+      #google-btn:hover {
+        background-color: #357ae8;
+      }
+      #ics-btn {
+        background-color: #34a853;
+      }
+      #ics-btn:hover {
+        background-color: #2c8e46;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>📅 캘린더 추가 테스트</h2>
+    <button id="google-btn">Google 캘린더에 추가</button>
+    <button id="ics-btn">iCal (ICS) 파일 다운로드</button>
+
+    <script>
+      // === (1) Google 캘린더 추가 ===
+      document.getElementById("google-btn").addEventListener("click", () => {
+        const title = encodeURIComponent("성경 읽기 챌린지 Day 1");
+        const details = encodeURIComponent("오늘의 말씀 읽기 (창세기 1–3장)");
+        const start = "20251110T090000"; // YYYYMMDDTHHmmss
+        const end = "20251110T100000";
+        const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&details=${details}&dates=${start}/${end}`;
+        window.open(url, "_blank");
+      });
+
+      // === (2) ICS 파일 생성 & 다운로드 ===
+      document.getElementById("ics-btn").addEventListener("click", () => {
+        const icsContent = `
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Bible Reading Challenge//EN
+BEGIN:VEVENT
+SUMMARY:성경 읽기 챌린지 Day 1
+DESCRIPTION:오늘의 말씀 읽기 (창세기 1–3장)
+DTSTART:20251110T090000Z
+DTEND:20251110T100000Z
+END:VEVENT
+END:VCALENDAR
+      `.trim();
+
+        const blob = new Blob([icsContent], {
+          type: "text/calendar;charset=utf-8",
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = "bible_challenge.ics";
+        a.click();
+        URL.revokeObjectURL(url);
+      });
+    </script>
+  </body>
+</html>
