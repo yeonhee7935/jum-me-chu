@@ -16,6 +16,7 @@ export function AdRewardButton({ onRewarded }: Props) {
   const loadAd = useCallback(() => {
     if (GoogleAdMob.loadAppsInTossAdMob.isSupported() !== true) {
       console.warn("AdMob not supported");
+      onRewarded();
       return;
     }
 
